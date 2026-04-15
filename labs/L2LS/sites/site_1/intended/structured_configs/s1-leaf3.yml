@@ -145,7 +145,7 @@ port_channel_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: '20'
+      allowed_vlan: 20,130
 - name: Port-Channel4
   description: SERVER_s1-host2
   shutdown: false
@@ -187,6 +187,9 @@ vlans:
   tenant: system
 - id: 20
   name: Twenty
+  tenant: MY_FABRIC
+- id: 130
+  name: Hundred-Thirty
   tenant: MY_FABRIC
 vrfs:
 - name: default
