@@ -327,6 +327,7 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 10 | Ten | - |
 | 20 | Twenty | - |
+| 130 | Hundred-Thirty | - |
 | 4093 | MLAG_L3 | MLAG |
 | 4094 | MLAG | MLAG |
 
@@ -339,6 +340,9 @@ vlan 10
 !
 vlan 20
    name Twenty
+!
+vlan 130
+   name Hundred-Thirty
 !
 vlan 4093
    name MLAG_L3
@@ -362,8 +366,8 @@ vlan 4094
 | Ethernet1 | MLAG_s1-spine1_Ethernet1 | *trunk | *- | *- | *MLAG | 1 |
 | Ethernet2 | L2_s1-leaf1_Ethernet3 | *trunk | *10 | *- | *- | 2 |
 | Ethernet3 | L2_s1-leaf2_Ethernet3 | *trunk | *10 | *- | *- | 2 |
-| Ethernet4 | L2_s1-leaf3_Ethernet3 | *trunk | *20 | *- | *- | 4 |
-| Ethernet5 | L2_s1-leaf4_Ethernet3 | *trunk | *20 | *- | *- | 4 |
+| Ethernet4 | L2_s1-leaf3_Ethernet3 | *trunk | *20,130 | *- | *- | 4 |
+| Ethernet5 | L2_s1-leaf4_Ethernet3 | *trunk | *20,130 | *- | *- | 4 |
 | Ethernet6 | MLAG_s1-spine1_Ethernet6 | *trunk | *- | *- | *MLAG | 1 |
 
 *Inherited from Port-Channel Interface
@@ -438,7 +442,7 @@ interface Ethernet8
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_s1-spine1_Port-Channel1 | trunk | - | - | MLAG | - | - | - | - |
 | Port-Channel2 | L2_RACK1_Port-Channel2 | trunk | 10 | - | - | - | - | 2 | - |
-| Port-Channel4 | L2_RACK2_Port-Channel2 | trunk | 20 | - | - | - | - | 4 | - |
+| Port-Channel4 | L2_RACK2_Port-Channel2 | trunk | 20,130 | - | - | - | - | 4 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -462,7 +466,7 @@ interface Port-Channel2
 interface Port-Channel4
    description L2_RACK2_Port-Channel2
    no shutdown
-   switchport trunk allowed vlan 20
+   switchport trunk allowed vlan 20,130
    switchport mode trunk
    switchport
    mlag 4
@@ -503,6 +507,7 @@ interface Loopback0
 | --------- | ----------- | --- | ---- | -------- |
 | Vlan10 | Ten | default | - | False |
 | Vlan20 | Twenty | default | - | False |
+| Vlan130 | Hundred-Thirty | default | - | False |
 | Vlan4093 | MLAG_L3 | default | 1500 | False |
 | Vlan4094 | MLAG | default | 1500 | False |
 
@@ -512,6 +517,7 @@ interface Loopback0
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
 | Vlan10 |  default  |  10.10.10.3/24  |  -  |  10.10.10.1  |  -  |  -  |
 | Vlan20 |  default  |  10.20.20.3/24  |  -  |  10.20.20.1  |  -  |  -  |
+| Vlan130 |  default  |  10.130.130.3/24  |  -  |  10.130.130.1  |  -  |  -  |
 | Vlan4093 |  default  |  10.1.253.3/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.1.253.1/31  |  -  |  -  |  -  |  -  |
 
@@ -530,6 +536,12 @@ interface Vlan20
    no shutdown
    ip address 10.20.20.3/24
    ip virtual-router address 10.20.20.1
+!
+interface Vlan130
+   description Hundred-Thirty
+   no shutdown
+   ip address 10.130.130.3/24
+   ip virtual-router address 10.130.130.1
 !
 interface Vlan4093
    description MLAG_L3
