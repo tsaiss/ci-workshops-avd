@@ -9,4 +9,5 @@
       ansible.builtin.import_role:
         name: arista.avd.cv_deploy
       vars:
-        cv_run_change_control: false
+        cv_run_change_control: true
+        cv_server: "corning-taiwan-12-8e63be66-eos.topo.testdrive.arista.com"
